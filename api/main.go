@@ -2,9 +2,22 @@ package handler
 
 import (
 	"fmt"
-	"net/http"
 )
 
-func Handler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "<h1>Hello from Go!</h1>")
+//App - the struct which contains like pointers to the database connections
+type App struct{}
+
+// Run - sets up our application
+func (app *App) Run() error {
+	fmt.Println("Setting Up Our App")
+	return nil
+}
+
+func main() {
+	fmt.Println("Go Rest API")
+	app := App{}
+	if err := app.Run(); err != nil {
+		fmt.Println("Error starting up our REST API")
+		fmt.Println(err)
+	}
 }
