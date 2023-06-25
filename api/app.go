@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -30,6 +31,19 @@ func (app *App) Initialise() error {
 // Run - sets up our application
 func (app *App) Run(address string) {
 	log.Fatal(http.ListenAndServe(address, app.Router))
+}
+
+func sendResponse(w http.ResponseWriter, statusCode int, payload interface{}) {
+	response, _ := json.Marshal(payload)
+	w.Header().Set("Content-type", "application/json")
+	w.WriteHeader(statusCode)
+	w.Write(response)
+
+}
+
+func sendError(w http.ResponseWriter, statusCode int, payload interface{}) {
+	error_message := map[string]string{"error": err}
+	sendResponse(w, statusCode, error_message)
 }
 
 func (app *App) handleRoutes() {
