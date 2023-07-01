@@ -1,4 +1,9 @@
-package models
+package main
+
+import (
+	"database/sql"
+	_ "github.com/go-sql-driver/mysql"
+)
 
 type Advert struct {
 	ID        int    `json:"id"`
@@ -10,7 +15,7 @@ type Advert struct {
 	Age_end   int    `json:"age_end"`
 }
 
-func getAdverts(db *sql.db) ([]Advert, error) {
+func getAdverts(db *sql.DB) ([]Advert, error) {
 	query := "SELECT id, type, ad_name, i_age_range_start, i_age_range_end, e_gender, v_location FROM advertise_info"
 	rows, err := db.Query(query)
 
@@ -21,7 +26,7 @@ func getAdverts(db *sql.db) ([]Advert, error) {
 	adverts := []Advert{}
 	for rows.Next() {
 		var a Advert
-		err := rows.Scan(&a.ID, &a.Type, &a.Ad_name, &a.Age_start, &a.Age_end, &a.Location)
+		err := rows.Scan(&a.ID, &a.Type, &a.Ad_name, &a.Age_start, &a.Age_end, &a.Gender, &a.Location)
 		if err != nil {
 			return nil, err
 		}
