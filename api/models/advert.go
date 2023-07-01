@@ -1,4 +1,4 @@
-package main
+package models
 
 import (
 	"database/sql"
@@ -15,7 +15,7 @@ type Advert struct {
 	Age_end   int    `json:"age_end"`
 }
 
-func getAdverts(db *sql.DB) ([]Advert, error) {
+func GetAdverts(db *sql.DB) ([]Advert, error) {
 	query := "SELECT id, type, ad_name, i_age_range_start, i_age_range_end, e_gender, v_location FROM advertise_info"
 	rows, err := db.Query(query)
 

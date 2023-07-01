@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 
+	"example.com/api/models"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/mux"
 )
@@ -50,7 +51,7 @@ func sendError(w http.ResponseWriter, statusCode int, err string) {
 }
 
 func (app *App) getAdverts(w http.ResponseWriter, r *http.Request) {
-	adverts, err := getAdverts(app.DB)
+	adverts, err := models.GetAdverts(app.DB)
 	if err != nil {
 		sendError(w, http.StatusInternalServerError, err.Error())
 		return
