@@ -27,7 +27,7 @@ func (app *App) Initialise() error {
 	}
 
 	app.Router = mux.NewRouter().StrictSlash(true)
-	app.handleRoutes()
+	app.HandleRoutes()
 	return nil
 }
 
@@ -59,6 +59,6 @@ func (app *App) getAdverts(w http.ResponseWriter, r *http.Request) {
 	sendResponse(w, http.StatusOK, adverts)
 }
 
-func (app *App) handleRoutes() {
+func (app *App) HandleRoutes() {
 	app.Router.HandleFunc("/adverts", app.getAdverts).Methods("GET")
 }
