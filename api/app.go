@@ -59,6 +59,17 @@ func (app *App) getAdverts(w http.ResponseWriter, r *http.Request) {
 	sendResponse(w, http.StatusOK, adverts)
 }
 
+func (app *App) getAdvert(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	adverts, err := models.GetAdvert(app.DB, vars["id"])
+	if err != nil {
+		sendError(w, http.StatusInternalServerError, err.Error())
+		return
+	}
+	sendResponse(w, http.StatusOK, adverts)
+}
+
 func (app *App) HandleRoutes() {
 	app.Router.HandleFunc("/adverts", app.getAdverts).Methods("GET")
+	app.Router.HandleFunc("/adverts/{id}", app.getAdvert).Methods("GET")
 }

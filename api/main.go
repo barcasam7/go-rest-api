@@ -1,6 +1,6 @@
 package main
 
-func Handler() {
+func main() {
 	app := App{}
 	app.Initialise()
 	app.Run("localhost:10000")

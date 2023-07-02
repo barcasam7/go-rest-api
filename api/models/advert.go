@@ -15,6 +15,17 @@ type Advert struct {
 	Age_end   int    `json:"age_end"`
 }
 
+func GetAdvert(db *sql.DB, id string) (Advert, error) {
+	var advert Advert
+	query := "SELECT id, type, ad_name, i_age_range_start, i_age_range_end, e_gender, v_location FROM advertise_info WHERE id = ?"
+	err := db.QueryRow(query, id).Scan(&advert.ID, &advert.Type, &advert.Ad_name, &advert.Age_start, &advert.Age_end, &advert.Gender, &advert.Location)
+
+	if err != nil {
+		return advert, err
+	}
+	return advert, nil
+}
+
 func GetAdverts(db *sql.DB) ([]Advert, error) {
 	query := "SELECT id, type, ad_name, i_age_range_start, i_age_range_end, e_gender, v_location FROM advertise_info"
 	rows, err := db.Query(query)
