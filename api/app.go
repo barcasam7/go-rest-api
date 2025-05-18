@@ -12,7 +12,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-//App - the struct which contains like pointers to the database connections
+// App - the struct which contains like pointers to the database connections
 type App struct {
 	Router *mux.Router
 	DB     *sql.DB
@@ -67,9 +67,4 @@ func (app *App) getAdvert(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	sendResponse(w, http.StatusOK, adverts)
-}
-
-func (app *App) HandleRoutes() {
-	app.Router.HandleFunc("/adverts", app.getAdverts).Methods("GET")
-	app.Router.HandleFunc("/adverts/{id}", app.getAdvert).Methods("GET")
 }

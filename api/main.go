@@ -1,9 +1,13 @@
 package main
 
-import "net/http"
-
-func Handler(w http.ResponseWriter, r *http.Request) {
+func main() {
+	// Initialize the application
 	app := App{}
-	app.Initialise()
+	err := app.Initialise()
+	if err != nil {
+		panic(err)
+	}
+
+	// Start the server
 	app.Run("localhost:10000")
 }
